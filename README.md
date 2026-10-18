@@ -22,7 +22,7 @@
 
 ---
 
-**Grimforge** turns your gear into something you grind for. Tools level up as you use them, swords evolve into demonic blades, and Diablo-style runes drop from monsters to socket into your weapons. It's built for PvP and factions servers, so every number has been tested in 1v1 duels to keep fights fair.
+**Grimforge** turns your gear into something you grind for. Tools level up as you use them, swords evolve into demonic blades, and runes drop from monsters to socket into your weapons. It's built for PvP and factions servers, so every number has been tested in 1v1 duels to keep fights fair.
 
 ## Features
 
@@ -173,24 +173,7 @@ Every modifier and rune can also be turned off individually with `enabled: false
 
 </details>
 
-## Building from source
 
-Needs JDK 21.
-
-```bash
-git clone https://github.com/Mikeym41/grimforge.git
-cd grimforge
-./gradlew build        # Windows: gradlew.bat build
-```
-
-The jar ends up in `build/libs/`.
-
-All the art (textures, banner, icons) is drawn from code in [`art/`](art), so it can be tweaked and regenerated. Needs Python 3 and Pillow:
-
-```bash
-python3 art/art.py <pack-folder> <preview-folder>   # resource pack + previews
-python3 art/banner.py                               # README banner
-python3 art/icons.py                                # README icons
 ```
 
 ## Roadmap
