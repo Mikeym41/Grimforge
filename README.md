@@ -1,151 +1,194 @@
-<p align="center"><img src="docs/images/icon.png" width="128" alt="Grimforge icon"></p>
+<p align="center">
+  <img src="docs/images/banner.png" alt="Grimforge: leveling tools, evolving swords and Diablo-style runes">
+</p>
 
-# Grimforge
+<p align="center">
+  <a href="https://github.com/Mikeym41/grimforge/releases/latest"><img src="https://img.shields.io/github/v/release/Mikeym41/grimforge?include_prereleases&label=release&color=e8622c" alt="Latest release"></a>
+  <img src="https://img.shields.io/badge/Minecraft-1.21.4%20%E2%80%93%2026.3-5a9e4b" alt="Minecraft 1.21.4 to 26.3">
+  <img src="https://img.shields.io/badge/Paper-%26%20Purpur-1f6feb" alt="Paper and Purpur">
+  <img src="https://img.shields.io/badge/Java-21%2B-b07219" alt="Java 21+">
+  <img src="https://img.shields.io/badge/Factions-FactionsUUID%20%7C%20Saber-8a4fbf" alt="FactionsUUID and SaberFactions">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-lightgrey" alt="MIT license"></a>
+</p>
 
-A Paper plugin for PvP and factions servers: tools earn XP, level up and unlock modifiers, swords visually evolve, and Diablo-style runes drop from monsters and socket into your weapons.
+<p align="center">
+  <a href="#-features">Features</a> ·
+  <a href="#-runes">Runes</a> ·
+  <a href="#%EF%B8%8F-pvp-balance">PvP balance</a> ·
+  <a href="#-installation">Installation</a> ·
+  <a href="#-commands--permissions">Commands</a> ·
+  <a href="#%EF%B8%8F-configuration">Config</a>
+</p>
 
-Supports Paper 1.21.4 through 26.3 (26.x servers need Java 25). Optional resource pack for the sword and rune textures.
+---
 
-- **Pickaxes, axes, shovels and hoes** earn XP for mining blocks they're the right tool for (ores give more). Hoes earn XP from fully grown crops.
-- **Any tool** earns XP from mob kills (swords included).
-- Each level grants a **modifier point**. Spend points in the `/tool` menu.
-- Progress shows in the tool's lore, with a level-up title and sound.
-- **Anti-farming:** player-placed blocks and spawner mobs give no XP, and creative mode doesn't count.
+**Grimforge** turns your gear into something you grind for. Tools level up as you use them, swords evolve into demonic blades, and Diablo-style runes drop from monsters to socket into your weapons. It's built for PvP and factions servers, so every number has been tested in 1v1 duels to keep fights fair.
 
-## Modifiers
+## ✨ Features
+
+| | |
+|---|---|
+| ⛏️ **Tools that level up** | Pickaxes, axes, shovels, hoes and swords earn XP from mining, farming and fighting, up to level 20. Each level gives a point to spend on modifiers. |
+| 🔥 **Swords that evolve** | Swords change look at levels 10, 15 and 20, from a serrated blade to a molten demon sword. Every material glows its own color. |
+| 💎 **Diablo-style runes** | 8 runes in Magic, Rare and Legendary tiers drop from monsters. Swords and axes unlock up to 3 sockets. |
+| ⚔️ **Balanced for PvP** | Runes only proc on fully charged hits, have cooldowns, and are capped against players. |
+| 🏰 **Factions ready** | Runes never hit your faction, allies or truces, and are off in safezones. Hooks into FactionsUUID and SaberFactions automatically. |
+| 🚫 **Farm-proof** | No XP from player-placed blocks, spawner mobs or creative mode. Tracking stays instant even in huge bases. |
+
+## 🔥 Evolving swords
+
+<p align="center"><img src="docs/images/evolving-swords.png" width="760" alt="Sword evolution stages for every material"></p>
+
+| Level | Stage | Look |
+|---|---|---|
+| 10 | **Tempered** | Serrated, battle-worn blade |
+| 15 | **Runed** | Glowing runes in the fuller, winged guard, set gems |
+| 20 | **Infernal** | Black blade with a molten edge, burning horns and embers |
+
+Players get a message when their sword evolves. The textures come from the optional [resource pack](#-resource-pack); without it, swords keep their vanilla look.
+
+## ⛏️ Modifiers
+
+Every level up gives a modifier point. Spend them in the `/tool` menu.
 
 | Modifier | Tools | Effect |
 |---|---|---|
-| Haste | pickaxe, axe, shovel, hoe | +1 Efficiency per level |
-| Lucky | pickaxe, axe, shovel, hoe | +1 Fortune per level (not on Silk Touch tools) |
-| Autosmelt | pickaxe, shovel | Smelts drops (iron ore → iron ingot, sand → glass) |
-| Magnetic | all | Drops go straight to your inventory |
-| Reinforced | all | 10% chance per level to skip durability loss |
-| Experienced | all | +50% XP orbs per level |
-| Sharp | sword, axe | +1 melee damage per level (+0.2 vs players) |
-| Lifesteal | sword, axe | Heal 5% of damage dealt per level (2% vs players) |
+| **Haste** | pickaxe, axe, shovel, hoe | +1 Efficiency per level |
+| **Lucky** | pickaxe, axe, shovel, hoe | +1 Fortune per level |
+| **Autosmelt** | pickaxe, shovel | Smelts drops (iron ore → iron ingot, sand → glass) |
+| **Magnetic** | all | Drops go straight to your inventory |
+| **Reinforced** | all | 10% chance per level to skip durability loss |
+| **Experienced** | all | +50% XP orbs per level |
+| **Sharp** | sword, axe | +1 damage per level (+0.2 against players) |
+| **Lifesteal** | sword, axe | Heal 5% of damage dealt per level (2% against players) |
 
-Max levels, strengths, XP values and the level curve are all in `config.yml`.
+## 💎 Runes
 
-## Runes
+<p align="center"><img src="docs/images/runes.png" alt="All 24 rune textures"></p>
 
-![Runes](docs/images/runes.png)
+Hostile mobs drop runes in three tiers: <b>Magic</b> (blue), <b>Rare</b> (gold) and <b>Legendary</b> (orange). Bosses always drop Rare or better. Swords and axes unlock a socket at levels 5, 10 and 15. To socket a rune, open `/tool` and click it in your inventory.
 
-Diablo-style runes drop from hostile mobs and socket into **swords and axes**. Weapons gain a socket at levels 5, 10 and 15. Open `/tool`, then click a rune in your inventory to socket it. Shift-click a socketed rune to shatter it (the rune is destroyed). A weapon can't hold two runes of the same type.
-
-Runes come in three tiers: **Magic** (blue), **Rare** (yellow) and **Legendary** (orange). Default drop chances per hostile kill are 2% / 0.5% / 0.1%. Bosses (Wither, Ender Dragon, Warden, Elder Guardian) always drop a Rare or Legendary. Spawner mobs drop nothing.
-
-| Rune | Effect (Magic / Rare / Legendary) | Cooldown |
+| Rune | What it does | Cooldown |
 |---|---|---|
-| Ember | 10/15/20% chance to ignite for 3/4/5s | 5s |
-| Frost | 10/14/18% chance of Slowness I for 1.5/2/2.5s | 8s |
-| Venom | 10/14/18% chance of Poison I for 2/3/4s | 8s |
-| Storm | 8/12/15% chance to arc to 2/3/3 nearby enemies for 2/3/4 damage | 10s |
-| Bleed | 10/13/16% chance to bleed 1 damage/s for 3/4/5s | 10s |
-| Crushing Blow | 6/9/12% chance to deal 10/15/20% of current health | 12s |
-| Soul Harvest | Kills grant Regeneration I for 3/4/5s | 15s |
-| Retribution | 15/20/25% chance to reflect 6/9/12% of incoming damage, measured before armor | 6s |
+| 🔥 **Ember** | Sets your target on fire | 5s |
+| ❄️ **Frost** | Slows your target | 8s |
+| ☠️ **Venom** | Poisons your target (can't kill) | 8s |
+| ⚡ **Storm** | Lightning jumps to nearby enemies | 10s |
+| 🩸 **Bleed** | Damage over time | 10s |
+| 🔨 **Crushing Blow** | Bonus damage based on the target's current health | 12s |
+| 💀 **Soul Harvest** | Regeneration after a kill | 15s |
+| 🛡️ **Retribution** | Reflects part of the damage you take | 6s |
 
-### PvP balance
+<details>
+<summary><b>Full rune stats by tier</b></summary>
 
-- Runes only proc on charged swings (90%+), so spam-clicking can't fish for procs. Sweep hits don't proc.
-- Every rune has its own cooldown per player.
-- Rune damage against players is multiplied by 0.6. Crushing Blow is capped at 4 damage (2 hearts) against players, and Retribution reflects at most 4.
-- Effects are level I only, poison can't kill, and bleeds don't stack.
-- Proc damage doesn't grant invulnerability frames, so a proc never shields the target from your next hit.
-- Storm hits as a normal attack from the player, so armor, world PvP settings and region plugins like WorldGuard still apply to bystanders it arcs to. Retribution and Bleed deal damage without knockback, since knocking someone into the air hands them falling critical hits.
-
-All of these numbers are in the `runes:` section of `config.yml`. Set `runes.debug: true` to log every proc.
-
-### Balance testing
-
-The numbers above were tuned with about 540 1v1 test duels, 30 to 40 per matchup. Both sides used Sharpness V netherite swords and Protection IV diamond armor. "Damage edge" is how much more damage per second the side with the upgrade dealt; one vanilla Sharpness level is worth about +4% on the same scale.
-
-| Matchup (vs. the same gear with nothing) | Damage edge |
+| Rune | Magic / Rare / Legendary |
 |---|---|
-| Sharpness V vs IV (vanilla yardstick) | +4% |
-| Legendary Bleed | +6% |
-| Legendary Crushing Blow | +4% |
-| Legendary Venom | +3% |
-| Legendary Retribution | +3% |
-| Legendary Ember | +2% |
-| Full Legendary set (Crushing Blow, Bleed, Ember) | +12% |
-| Sharp V modifier | +10% (was +66% before the PvP split) |
+| Ember | 10/15/20% chance to ignite for 3/4/5s |
+| Frost | 10/14/18% chance of Slowness I for 1.5/2/2.5s |
+| Venom | 10/14/18% chance of Poison I for 2/3/4s |
+| Storm | 8/12/15% chance to arc to 2/3/3 enemies for 2/3/4 damage |
+| Bleed | 10/13/16% chance to bleed 1 damage/s for 3/4/5s |
+| Crushing Blow | 6/9/12% chance to deal 10/15/20% of current health |
+| Soul Harvest | Regeneration I for 3/4/5s after a kill |
+| Retribution | 15/20/25% chance to reflect 6/9/12% of incoming damage |
 
-Frost and Storm can't be measured this way: Frost's slow matters for chasing and escaping, which a straight 1v1 duel doesn't test, and Storm needs a crowd.
+Drop chance per hostile kill: 2% Magic, 0.5% Rare, 0.1% Legendary. Bosses (Wither, Ender Dragon, Warden, Elder Guardian) always drop Rare or Legendary. Spawner mobs drop nothing.
 
-## Factions support
+</details>
 
-Grimforge works with **FactionsUUID** and forks that keep its API (such as **SaberFactions**). Nothing to set up: if one is installed, Grimforge hooks into it automatically and logs `Hooked into Factions` on startup.
+## ⚔️ PvP balance
 
-- Runes never hit faction members, allies or truces. That includes Storm arcing into a crowd and Retribution reflecting damage.
-- Runes are off in safezones.
-- The Sharp modifier's bonus damage never applies to friendly players.
+<p align="center"><img src="docs/images/balance.png" width="760" alt="Each Legendary rune adds about one level of Sharpness"></p>
 
-Settings live under `factions:` in `config.yml` (`truce-is-friendly` decides whether truces count as allies). Without a factions plugin, runes affect everyone except your own tamed pets.
+Runes should feel rewarding without making them mandatory. Tested in about 540 1v1 duels with the same gear on both sides, each Legendary rune is worth roughly one extra level of Sharpness, and a full set about three.
 
-## Evolving swords
+- Runes only proc on **fully charged hits**. Spam-clicking does nothing.
+- Every rune has its own **cooldown**.
+- Rune damage against players is **reduced** (60%), and the big hitters are **capped** at 2 hearts.
+- Effects are level I only, poison can't kill, and bleeds don't stack.
+- Rune hits never give invulnerability frames, so they never block your next swing.
 
-![Evolving swords](docs/images/evolving-swords.png)
+## 📦 Installation
 
-Swords change look as they level up: **Tempered** at level 10 (serrated steel blade), **Runed** at 15 (broad blade with glowing runes in the fuller, winged guard and gems) and **Infernal** at 20 (black blade with a molten edge, burning horns and drifting embers). Each sword material has its own glow color. Players get a message when their sword evolves. The levels are set by `visuals.sword-stage-levels` in `config.yml`.
+1. Download `Grimforge-0.5.0.jar` from the [latest release](https://github.com/Mikeym41/grimforge/releases/latest).
+2. Drop it into your server's `plugins` folder and restart.
+3. *(Optional)* Set up the resource pack below for evolving swords and rune textures.
 
-This needs the resource pack below. Without it, swords keep their vanilla look.
+**Requirements:** Paper or Purpur 1.21.4 through 26.3. Servers on 26.x need Java 25. FactionsUUID or SaberFactions is optional and detected automatically.
 
-## Resource pack (optional)
+### 🎨 Resource pack
 
-`Grimforge-Resource-Pack.zip` adds the evolving sword textures and gives each rune its own texture, with the frame color showing the tier. Without it, everything still works: swords look vanilla and runes appear as glowing echo shards.
+`Grimforge-Resource-Pack.zip` (also on the release page) adds the sword and rune textures. To send it to players automatically, host the zip somewhere with a direct download link and add this to `server.properties`:
 
-To have players download it automatically, upload the zip somewhere with a direct download link and set these in `server.properties`:
-
-```
+```properties
 resource-pack=https://your-host/Grimforge-Resource-Pack.zip
 resource-pack-sha1=<the zip's SHA-1>
 ```
 
-The pack only changes swords and echo shards that the plugin has tagged, so ordinary items look normal. Swords whose look was set by another plugin are left alone. It works on Minecraft 1.21.4 through 26.3.
+The pack only changes items Grimforge has tagged, so normal swords and echo shards look the same as always. Without the pack, everything still works with vanilla looks.
 
-## Commands
+## 🧾 Commands & permissions
 
-| Command | Permission | |
+| Command | Permission | Description |
 |---|---|---|
-| `/tool` (or `/gf`) | `grimforge.use` (everyone) | Open the modifier menu for the held tool |
-| `/tool info` | `grimforge.use` | Show level, XP and modifiers in chat |
-| `/tool addxp <n>` | `grimforge.admin` (op) | Add XP to the held tool (handy for testing) |
-| `/tool rune <type> [tier] [player]` | `grimforge.admin` | Give a rune, e.g. `/tool rune storm legendary` |
-| `/tool socket <type> [tier]` | `grimforge.admin` | Socket a rune straight into the held weapon (for testing) |
-| `/tool setmod <modifier> <level>` | `grimforge.admin` | Set a modifier level without spending points (for testing) |
-| `/tool reload` | `grimforge.admin` | Reload `config.yml` |
+| `/tool` (or `/gf`) | `grimforge.use` | Open the modifier and rune menu |
+| `/tool info` | `grimforge.use` | Show the held tool's level, modifiers and runes |
+| `/tool addxp <amount>` | `grimforge.admin` | Add XP to the held tool |
+| `/tool rune <type> [tier] [player]` | `grimforge.admin` | Give a rune |
+| `/tool socket <type> [tier]` | `grimforge.admin` | Socket a rune straight into the held weapon |
+| `/tool setmod <modifier> <level>` | `grimforge.admin` | Set a modifier level without spending points |
+| `/tool reload` | `grimforge.admin` | Reload the config |
 
-## Building
+`grimforge.use` is given to everyone by default. `grimforge.admin` is given to ops.
+
+## ⚙️ Configuration
+
+Everything lives in `plugins/Grimforge/config.yml`. Run `/tool reload` after editing.
+
+<details>
+<summary><b>Most useful settings</b></summary>
+
+| Setting | Default | What it does |
+|---|---|---|
+| `max-level` | `20` | Highest tool level |
+| `xp-curve.base` / `xp-curve.multiplier` | `50` / `1.2` | XP needed per level |
+| `runes.socket-levels` | `[5, 10, 15]` | Levels that unlock rune sockets |
+| `runes.drops.magic` / `rare` / `legendary` | `0.02` / `0.005` / `0.001` | Rune drop chance per hostile kill |
+| `runes.pvp.min-attack-charge` | `0.9` | How charged a hit must be to proc |
+| `runes.pvp.damage-multiplier` | `0.6` | Rune damage against players |
+| `runes.types.<rune>.cooldown` | `5`–`15` | Cooldown per rune, in seconds |
+| `visuals.sword-stage-levels` | `[10, 15, 20]` | Levels where swords evolve |
+| `factions.enabled` | `true` | Faction-aware runes |
+| `factions.truce-is-friendly` | `true` | Treat truces like allies |
+| `xp.blocks.ignore-player-placed` | `true` | No XP from blocks players placed |
+
+Every modifier and rune can also be turned off individually with `enabled: false`.
+
+</details>
+
+## 🛠️ Building from source
 
 Needs JDK 21.
 
+```bash
+git clone https://github.com/Mikeym41/grimforge.git
+cd grimforge
+./gradlew build        # Windows: gradlew.bat build
 ```
-./gradlew build          # Windows: gradlew.bat build
-```
 
-The jar lands in `build/libs/Grimforge-0.5.0.jar`. Drop it into your server's `plugins/` folder.
+The jar ends up in `build/libs/`. The textures are drawn from code in [`art/`](art); to rebuild the resource pack, run `python3 art/art.py <pack-folder> <preview-folder>` (needs Python 3 and Pillow).
 
-It compiles against the Paper 1.21.4 API (Java 21 bytecode, so it runs on both Java 21 and 25) and has been tested on Paper 1.21.4, 1.21.8, 1.21.11, 26.1.2 and 26.3.
+## 🗺️ Roadmap
 
-The textures are drawn from code in `art/`. To regenerate the resource pack after tweaking them: `python3 art/art.py <pack-folder> <preview-folder>` (needs Python 3 and Pillow).
+- [ ] Bows, crossbows, tridents and maces
+- [ ] Runewords: bonus effects for specific rune combinations
+- [ ] Armor sockets and defensive runes
+- [ ] PlaceholderAPI support and a `messages.yml` for translations
+- [ ] Per-world toggles
 
-## How it stores data
+Have an idea or found a bug? [Open an issue](https://github.com/Mikeym41/grimforge/issues).
 
-- Tool level, XP, points and modifiers live in the item's persistent data, so they survive restarts, trading and chests.
-- Player-placed blocks are tracked with one bit per block in each chunk's persistent data, so lookups stay instant even in huge factions bases. Data from versions before 0.5 is converted automatically.
-- Runes are echo shards tagged with persistent data; they can't be used in crafting or anvils.
-- Haste and Lucky add real enchantment levels; the rest are applied by event listeners.
+## 📄 License
 
-## License
-
-MIT. See `LICENSE`.
-
-## Ideas for next versions
-
-- Bows, crossbows, tridents and maces
-- Modifier choices that get stronger tiers at certain levels (e.g. pick one of two at level 5, 10, 15)
-- Area mining (3x3) as a late-game modifier
-- Repair kits or a "broken, not destroyed" state
-- Per-world toggles and a PlaceholderAPI hook
+[MIT](LICENSE) © Mikeym41
