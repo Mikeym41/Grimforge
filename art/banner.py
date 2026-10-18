@@ -40,28 +40,29 @@ def pixel_text(text, cell, fill_top, fill_bottom, outline):
     return out
 
 
-def main(out_path):
+def render(H=360, top=0):
+    """The banner artwork on an H-pixel-tall canvas, with its content shifted down by `top`."""
     img = Image.new("RGBA", (W, H), (18, 14, 22, 255))
 
     # Ember glow behind the swords and a fainter one behind the title.
     glow = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     g = ImageDraw.Draw(glow)
-    g.ellipse([800, -40, 1300, 420], fill=(255, 90, 30, 120))
-    g.ellipse([40, 40, 640, 330], fill=(160, 60, 200, 45))
+    g.ellipse([800, top - 40, 1300, top + 420], fill=(255, 90, 30, 120))
+    g.ellipse([40, top + 40, 640, top + 330], fill=(160, 60, 200, 45))
     img = Image.alpha_composite(img, glow.filter(ImageFilter.GaussianBlur(90)))
 
     # Drifting ember specks.
     d = ImageDraw.Draw(img)
     for x, y, s, a in ((700, 60, 6, 180), (1220, 40, 6, 150), (760, 300, 6, 120), (1180, 310, 6, 170),
                        (660, 200, 6, 90), (1240, 180, 6, 140), (980, 26, 6, 160), (900, 334, 6, 110)):
-        d.rectangle([x, y, x + s - 1, y + s - 1], fill=(255, 150, 60, a))
+        d.rectangle([x, top + y, x + s - 1, top + y + s - 1], fill=(255, 150, 60, a))
 
     # Title.
     title = pixel_text("GRIMFORGE", 5, (255, 214, 120), (232, 96, 28), (40, 14, 10, 255))
-    img.alpha_composite(title, (56, 84))
-    d.text((60, 84 + title.height + 22), "Leveling tools  ·  Evolving swords  ·  Diablo-style runes",
+    img.alpha_composite(title, (56, top + 84))
+    d.text((60, top + 84 + title.height + 22), "Leveling tools  ·  Evolving swords  ·  Diablo-style runes",
            font=ImageFont.truetype(FONT, 24), fill=(226, 220, 232))
-    d.text((60, 84 + title.height + 64), "A Paper plugin for PvP and factions servers", font=ImageFont.truetype(FONT, 20),
+    d.text((60, top + 84 + title.height + 64), "A Paper plugin for PvP and factions servers", font=ImageFont.truetype(FONT, 20),
            fill=(160, 152, 172))
 
     # The three sword stages, growing in size and glow.
@@ -69,18 +70,35 @@ def main(out_path):
                                                   ("netherite", "infernal", 11))):
         s = art.draw_sword(material, stage).resize((16 * scale, 16 * scale), Image.NEAREST)
         x = 830 + i * 135 - (scale - 8) * 8
-        y = H // 2 - s.height // 2 + (10 - i * 6)
+        y = top + 180 - s.height // 2 + (10 - i * 6)
         img.alpha_composite(s, (x, y))
 
     # A few runes around the swords.
     for rune, tier, x, y in (("ember", "legendary", 1196, 28), ("frost", "rare", 800, 268),
                              ("storm", "magic", 1196, 266)):
         r = art.draw_rune(rune, tier).resize((64, 64), Image.NEAREST)
-        img.alpha_composite(r, (x, y))
+        img.alpha_composite(r, (x, top + y))
+    return img
 
+
+def main(out_path):
+    render().convert("RGB").save(out_path, optimize=True)
+    print("ok", out_path)
+
+
+def social(out_path):
+    """1280x640 image for GitHub's social preview (Settings > General > Social preview)."""
+    img = render(640, 120)
+    d = ImageDraw.Draw(img)
+    d.text((60, 520), "Factions ready  \u00b7  Balanced for PvP  \u00b7  Paper 1.21.4 \u2013 26.3",
+           font=ImageFont.truetype(FONT, 26), fill=(200, 192, 210))
+    d.text((60, 566), "github.com/Mikeym41/Grimforge", font=ImageFont.truetype(FONT_BOLD, 26), fill=(240, 150, 70))
     img.convert("RGB").save(out_path, optimize=True)
     print("ok", out_path)
 
 
 if __name__ == "__main__":
-    main(sys.argv[1] if len(sys.argv) > 1 else "docs/images/banner.png")
+    if len(sys.argv) > 1 and sys.argv[1] == "--social":
+        social(sys.argv[2] if len(sys.argv) > 2 else "social-preview.png")
+    else:
+        main(sys.argv[1] if len(sys.argv) > 1 else "docs/images/banner.png")
