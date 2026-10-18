@@ -1,0 +1,170 @@
+# Grimforge config. Run /tool reload after editing.
+
+max-level: 20
+points-per-level: 1     # modifier points earned per level
+show-xp-actionbar: true  # show "+5 Pickaxe XP" above the hotbar
+
+# FactionsUUID / SaberFactions support (used automatically when one is installed).
+# Runes never hit faction members or allies, and runes are off in safezones.
+factions:
+  enabled: true
+  truce-is-friendly: true   # treat truces like allies
+
+# Swords change look at these levels: Tempered, Runed, Infernal.
+# Needs the Grimforge resource pack; without it swords look vanilla.
+visuals:
+  evolving-swords: true
+  sword-stage-levels: [10, 15, 20]
+
+# XP needed to go from level n to n+1 = base * multiplier^(n-1)
+# Defaults: 50, 60, 72, 86, ... about 7,700 XP total to reach level 20.
+xp-curve:
+  base: 50
+  multiplier: 1.2
+
+xp:
+  blocks:
+    # Only counts when the tool is the right one for the block (pickaxe on stone, axe on logs, ...).
+    default: 1
+    # Hoes earn this for harvesting fully grown crops.
+    grown-crop: 2
+    # Blocks a player placed give no XP, so place-and-break loops can't farm levels.
+    ignore-player-placed: true
+    overrides:
+      COAL_ORE: 4
+      DEEPSLATE_COAL_ORE: 4
+      COPPER_ORE: 4
+      DEEPSLATE_COPPER_ORE: 4
+      IRON_ORE: 6
+      DEEPSLATE_IRON_ORE: 6
+      GOLD_ORE: 8
+      DEEPSLATE_GOLD_ORE: 8
+      NETHER_GOLD_ORE: 4
+      NETHER_QUARTZ_ORE: 4
+      REDSTONE_ORE: 6
+      DEEPSLATE_REDSTONE_ORE: 6
+      LAPIS_ORE: 8
+      DEEPSLATE_LAPIS_ORE: 8
+      DIAMOND_ORE: 20
+      DEEPSLATE_DIAMOND_ORE: 20
+      EMERALD_ORE: 25
+      DEEPSLATE_EMERALD_ORE: 25
+      ANCIENT_DEBRIS: 40
+      OBSIDIAN: 5
+  mobs:
+    default: 5
+    # Mobs from spawners give no tool XP, so mob farms can't max a sword in minutes.
+    ignore-spawner-mobs: true
+    overrides:
+      ENDERMAN: 10
+      BLAZE: 10
+      WITCH: 12
+      PIGLIN_BRUTE: 20
+      RAVAGER: 40
+      EVOKER: 40
+      ELDER_GUARDIAN: 100
+      WARDEN: 150
+      WITHER: 200
+      ENDER_DRAGON: 250
+
+# Set enabled: false to remove a modifier from the menu and switch off its effect.
+modifiers:
+  haste:          # +1 Efficiency per level (pickaxe, axe, shovel, hoe)
+    enabled: true
+    max-level: 3
+  lucky:          # +1 Fortune per level (pickaxe, axe, shovel, hoe)
+    enabled: true
+    max-level: 3
+  autosmelt:      # smelts drops (pickaxe, shovel)
+    enabled: true
+    max-level: 1
+  magnetic:       # drops go to inventory (all tools)
+    enabled: true
+    max-level: 1
+  reinforced:     # chance to skip durability loss (all tools)
+    enabled: true
+    max-level: 5
+    chance-per-level: 0.10
+  experienced:    # extra XP orbs (all tools)
+    enabled: true
+    max-level: 3
+    bonus-per-level: 0.50
+  # Sharp and Lifesteal have separate, smaller values against players. In bot testing,
+  # Sharp V at full strength was worth about 16 levels of Sharpness in PvP.
+  sharp:          # flat bonus melee damage (sword, axe)
+    enabled: true
+    max-level: 5
+    damage-per-level: 1.0
+    damage-per-level-vs-players: 0.2   # max +1.0, about two Sharpness levels
+  lifesteal:      # heal a share of damage dealt (sword, axe)
+    enabled: true
+    max-level: 3
+    heal-per-level: 0.05
+    heal-per-level-vs-players: 0.02    # max 6%
+
+# Diablo-style runes: rare drops that socket into swords and axes.
+runes:
+  enabled: true
+  # Log every rune proc to the console and tell the rune's owner in chat. For testing.
+  debug: false
+  # A weapon gains a socket at each of these levels.
+  socket-levels: [5, 10, 15]
+
+  # PvP balance. Runes only proc on charged swings, each rune has its own cooldown,
+  # and rune damage against players is scaled down.
+  pvp:
+    damage-multiplier: 0.6         # rune damage vs players (Storm, Bleed, Retribution, Crushing Blow)
+    min-attack-charge: 0.9         # 1.0 = fully charged swing
+    crushing-blow-cap-players: 4   # max bonus damage vs players (4 = 2 hearts)
+    crushing-blow-cap-mobs: 20
+    retribution-cap: 4             # max reflected damage per proc
+
+  # Chance per hostile mob kill (not from spawners). Bosses always drop Rare or Legendary.
+  drops:
+    magic: 0.02
+    rare: 0.005
+    legendary: 0.001
+    boss-legendary-chance: 0.3
+
+  # Each list is [magic, rare, legendary]. chance is per charged hit; cooldown is in seconds.
+  types:
+    ember:          # sets the target on fire; power = seconds
+      enabled: true
+      chance: [0.10, 0.15, 0.20]
+      power: [3, 4, 5]
+      cooldown: 5
+    frost:          # Slowness I; power = seconds
+      enabled: true
+      chance: [0.10, 0.14, 0.18]
+      power: [1.5, 2, 2.5]
+      cooldown: 8
+    venom:          # Poison I (can't kill); power = seconds
+      enabled: true
+      chance: [0.10, 0.14, 0.18]
+      power: [2, 3, 4]
+      cooldown: 8
+    storm:          # arcs to 2/3/3 nearby enemies; power = damage per arc
+      enabled: true
+      chance: [0.08, 0.12, 0.15]
+      power: [2, 3, 4]
+      cooldown: 10
+    bleed:          # 1 damage per second, doesn't stack; power = seconds
+      enabled: true
+      chance: [0.10, 0.13, 0.16]
+      power: [3, 4, 5]
+      cooldown: 10
+    crushing-blow:  # bonus damage = share of target's current health (capped above); power = fraction
+      enabled: true
+      chance: [0.06, 0.09, 0.12]
+      power: [0.10, 0.15, 0.20]
+      cooldown: 12
+    soul-harvest:   # Regeneration I after a kill; power = seconds
+      enabled: true
+      chance: [1.0, 1.0, 1.0]
+      power: [3, 4, 5]
+      cooldown: 15
+    retribution:    # reflects part of incoming damage (before armor) while holding the weapon; power = fraction
+      enabled: true
+      chance: [0.15, 0.20, 0.25]
+      power: [0.06, 0.09, 0.12]
+      cooldown: 6

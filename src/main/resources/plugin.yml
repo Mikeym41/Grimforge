@@ -1,0 +1,21 @@
+name: Grimforge
+version: '${version}'
+main: dev.grimforge.GrimforgePlugin
+api-version: '1.21'
+softdepend: [Factions]
+description: Leveling tools, evolving swords and Diablo-style runes for PvP and factions servers.
+authors: [Mikeym41]
+website: https://modrinth.com/plugin/grimforge
+commands:
+  tool:
+    description: Upgrade or inspect the tool in your hand.
+    aliases: [grimforge, gf]
+    usage: /tool [info|mods|addxp|rune|socket|setmod|reload]
+    permission: grimforge.use
+permissions:
+  grimforge.use:
+    description: Use /tool and its modifier menu.
+    default: true
+  grimforge.admin:
+    description: Use the admin and testing commands (addxp, rune, socket, setmod, reload).
+    default: op
