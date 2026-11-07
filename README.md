@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/images/banner.png" alt="Grimforge: leveling tools, evolving swords and Diablo-style runes">
+  <img src="docs/images/banner.png" alt="Grimforge: leveling tools, evolving swords and runes">
 </p>
 
 <p align="center">
