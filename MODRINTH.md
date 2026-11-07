@@ -1,88 +1,61 @@
-# Grimforge
+![Grimforge: leveling tools, evolving swords and Diablo-style runes](https://raw.githubusercontent.com/Mikeym41/Grimforge/main/docs/images/banner.png)
 
-**Your weapons remember every fight.** Tools level up as you use them, swords evolve into demonic blades, and Diablo-style runes drop from monsters to socket into your gear. Built for PvP and factions servers, with balance tested in hundreds of 1v1 duels.
+*Mine, fight, level up, socket a rune, then go back for more.*
 
----
+**Links:** [Guide & source code](https://github.com/Mikeym41/Grimforge) · [Issue tracker](https://github.com/Mikeym41/Grimforge/issues) · [Changelog](https://github.com/Mikeym41/Grimforge/blob/main/CHANGELOG.md)
 
-## ⚔ Tools that grow with you
+**Requires:** Paper or Purpur, 1.21.4 to 26.3 (26.x needs Java 25)
+**Works with:** FactionsUUID, SaberFactions
 
-Pickaxes, axes, shovels, hoes and swords earn XP as you mine, farm and fight. Every level grants a **modifier point** to spend in the `/tool` menu:
+## Overview
 
-| Modifier | Effect |
-|---|---|
-| **Haste** | +1 Efficiency per level |
-| **Lucky** | +1 Fortune per level |
-| **Autosmelt** | Smelts what you mine |
-| **Magnetic** | Drops go straight to your inventory |
-| **Reinforced** | Chance to skip durability loss |
-| **Experienced** | More XP orbs from blocks and kills |
-| **Sharp** | Bonus melee damage |
-| **Lifesteal** | Heal a share of the damage you deal |
+Grimforge lets you level up your tools, evolve your swords and pry runes off whatever you just killed. Features include:
 
-Progress lives on the item itself, so leveled gear survives deaths, trades and chests. That makes a max-level sword a real prize when you kill its owner.
+- Tools that get better the more you use them
+- Modifiers to spend your hard-earned levels on
+- Swords that look scarier every few levels
+- Runes in three tiers, dropped by anything hostile
+- Balance tested the hard way, in about 540 duels
+- No free XP for farmers
 
-## 🔥 Swords that evolve
+The full numbers live in the [guide](https://github.com/Mikeym41/Grimforge#features).
 
-With the optional resource pack, swords change look as they level:
+## Factions Ready
 
-- **Level 10: Tempered.** A serrated, battle-worn blade.
-- **Level 15: Runed.** Glowing runes etched into the fuller, a winged guard and set gems.
-- **Level 20: Infernal.** A black blade with a molten edge, burning horns and drifting embers.
+Your runes know who your friends are. Grimforge hooks into FactionsUUID and SaberFactions on its own.
 
-Every material glows its own color, so a glance tells you exactly what someone is carrying.
+- No rune friendly fire on members, allies or truces
+- Storm lightning won't jump to your teammates
+- Safezones stay safe
 
-## 💎 Diablo-style runes
+## Installation
 
-Hostile mobs drop runes in three tiers: **Magic**, **Rare** and **Legendary**. Bosses always drop Rare or better. Swords and axes gain rune sockets at levels 5, 10 and 15.
+Same as any other plugin:
 
-| Rune | Effect |
-|---|---|
-| **Ember** | Sets your target ablaze |
-| **Frost** | Slows your target |
-| **Venom** | Poisons your target |
-| **Storm** | Lightning arcs to nearby enemies |
-| **Bleed** | Damage over time |
-| **Crushing Blow** | Bonus damage based on the target's current health |
-| **Soul Harvest** | Regeneration after a kill |
-| **Retribution** | Reflects part of the damage you take |
-
-## 🛡 Built for PvP
-
-Runes are fun, not mandatory. Every number was tuned with 1v1 test duels on a real server: each Legendary rune is worth about one Sharpness level, and a full set of three about three.
-
-- Runes only trigger on **fully charged swings**. Spam-clicking gets you nothing.
-- Every rune has its own **cooldown**.
-- Rune damage against players is **reduced**, and percentage damage is **hard-capped**.
-- Effects are level I only, poison can't kill, and bleeds don't stack.
-- Rune hits never grant invulnerability frames, so they never shield a target from your next hit.
-
-## 🏰 Factions ready
-
-Works out of the box with **FactionsUUID** and **SaberFactions**:
-
-- Runes **never hit faction members, allies or truces**, including Storm arcing into a crowd.
-- Runes are **off in safezones**.
-- **Anti-farming:** player-placed blocks, spawner mobs and creative mode give no XP. Placed-block tracking stays instant even in huge bases.
-
-## 📦 Installation
-
-1. Drop `Grimforge-0.5.0.jar` into your `plugins` folder and restart.
-2. *(Optional)* Give players the resource pack for evolving swords and rune textures. Set `resource-pack` in `server.properties` to the pack's download link. Without it, everything still works with vanilla looks.
-
-**Supports Paper 1.21.4 through 26.3.** 26.x servers need Java 25.
+- Drop the jar in `plugins` and restart
+- Want the evolving swords? Grab the resource pack from the [latest release](https://github.com/Mikeym41/Grimforge/releases/latest)
+- Tweak anything you like in `config.yml`
 
 ## Commands
 
-| Command | Permission | |
-|---|---|---|
-| `/tool` (or `/gf`) | `grimforge.use` | Open the modifier and rune menu |
-| `/tool info` | `grimforge.use` | Show your tool's level, modifiers and runes |
-| `/tool addxp <n>` | `grimforge.admin` | Add XP to the held tool |
-| `/tool rune <type> [tier] [player]` | `grimforge.admin` | Give a rune |
-| `/tool reload` | `grimforge.admin` | Reload the config |
+One for players, a few for admins:
 
-Everything is configurable in `config.yml`: XP rates, level curve, modifier strength, rune chances, cooldowns, PvP caps and drop rates.
+- `/tool` or `/gf`: open the forge menu
+- `/tool info`: check your tool's level, modifiers and runes
+- `/tool addxp`, `/tool rune`, `/tool reload`: admin and testing tools
 
----
+Permissions are `grimforge.use` (everyone) and `grimforge.admin` (ops).
 
-*Grimforge is in beta. Found a bug or have an idea? Leave a comment or open an issue.*
+## What's Next
+
+Grimforge is in beta and still growing. Up next: **Grimforge as a NeoForge mod**, with tools built from parts, real rune items, Rune Words and recipe viewer support. The plugin sticks around for Paper servers.
+
+## License
+
+Grimforge is MIT licensed, so go wild. Put it on your server, toss it in your modpack, no need to ask. Just link back here instead of reuploading the jar, so nobody gets stuck on an old version.
+
+Bugs go on the [issue tracker](https://github.com/Mikeym41/Grimforge/issues), not in the comments. Logs make me happy.
+
+## Credits
+
+- **Mikeym41**: everything, for now

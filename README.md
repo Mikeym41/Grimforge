@@ -178,11 +178,15 @@ Every modifier and rune can also be turned off individually with `enabled: false
 
 ## Roadmap
 
+Grimforge is in beta and actively maintained, with bug fixes and updates for new Minecraft versions. Planned for the plugin:
+
 - [ ] Bows, crossbows, tridents and maces
 - [ ] Runewords: bonus effects for specific rune combinations
 - [ ] Armor sockets and defensive runes
 - [ ] PlaceholderAPI support and a `messages.yml` for translations
 - [ ] Per-world toggles
+
+**Coming next: Grimforge as a NeoForge mod** for Minecraft 26.3 and 1.21.1, with tools built from parts, real rune items, Rune Words and recipe viewer support. The plugin stays the server-side version for Paper servers.
 
 Have an idea or found a bug? [Open an issue](https://github.com/Mikeym41/grimforge/issues).
 
